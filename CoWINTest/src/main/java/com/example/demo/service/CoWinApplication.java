@@ -67,15 +67,7 @@ public class CoWinApplication {
 		res.setData(tempRes.getData().stream().filter(data -> Integer.valueOf(data.getMin_age_limit()) == 18 && Integer.valueOf(data.getAvailable_capacity_dose2()) > 10 && "COVAXIN".equals(data.getVaccine())).collect(Collectors.toList()));
 
 		resFirstDose.setData(tempRes.getData().stream().filter(data -> Integer.valueOf(data.getMin_age_limit()) == 18 && Integer.valueOf(data.getAvailable_capacity_dose1()) > 10 ).collect(Collectors.toList()));
-		/*if (tempRes.getData().size() != 0) {
-			List<SessionDTO> sessionDTOList = new ArrayList<SessionDTO>();
-			for (SessionDTO data : tempRes.getData()) {
-				if (Integer.valueOf(data.getMin_age_limit()) == 18 && Integer.valueOf(data.getAvailable_capacity_dose2()) > 10 && "COVAXIN".equals(data.getVaccine())) {
-					sessionDTOList.add(data);
-				}
-			}
-			res.setData(sessionDTOList);
-		}*/
+
 		if (res.getData() != null && res.getData().size() != 0) {
 			String mailText = new String();
 			for (SessionDTO centerDetails : res.getData()) {
