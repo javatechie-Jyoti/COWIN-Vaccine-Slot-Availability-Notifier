@@ -47,8 +47,8 @@ public class CoWinApplication {
 		//"district_id":145,"district_name":"East Delhi"
 		// "district_id":149,"district_name":"South Delhi"
 		// "district_id":650,"district_name":"Gautam budh Nagar"}
-		//String url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=149&date=09-06-2021";
-		String url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=149&date=02-06-2021";
+		String url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=149&date=09-06-2021";
+		//String url = "https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=149&date=04-06-2021";
 		RestTemplate restTemplate = new RestTemplate();
 		HttpHeaders httpHeaders = new HttpHeaders();
 		httpHeaders.set("accept", "application/json");
@@ -75,9 +75,22 @@ public class CoWinApplication {
 			}
 			//if(count ==0) {
 				System.out.println("count : "+count);
-				EmailService emailService = new EmailService();
+				EmailService emailService = new EmailService("jyoti.choudhary1990@gmail.com");
 				emailService.sendEmailUsingGmailServer(mailText);
 				count++;
+			//}
+		}
+
+		if (resFirstDose.getData() != null && resFirstDose.getData().size() != 0) {
+			String mailText = new String();
+			for (SessionDTO centerDetails : resFirstDose.getData()) {
+				mailText = "centerName: " + centerDetails.getName() + " available_slots dose 1: " + centerDetails.getAvailable_capacity_dose1() + " for min_age:" + centerDetails.getMin_age_limit() + "/n";
+			}
+			//if(count ==0) {
+			System.out.println("count : "+count);
+			EmailService emailService = new EmailService("sheetal.iitd@gmail.com");
+			emailService.sendEmailUsingGmailServer(mailText);
+			count++;
 			//}
 		}
 
